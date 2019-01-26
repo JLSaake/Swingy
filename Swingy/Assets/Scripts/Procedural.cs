@@ -82,8 +82,8 @@ public class Procedural : MonoBehaviour
                     case HeightIncrement.Decrease:
                         climbChance += 0.45f * (maxHeight - height) / maxHeight;
                         break;
-                    default:
-                        Debug.Log("");
+                    // default:
+                    //     Debug.Log("");
                 }
                 
             }
