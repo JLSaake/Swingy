@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rope: {fileID: 0}
+  launchCoefficient: 3
 --- !u!212 &1533940155
 SpriteRenderer:
   m_ObjectHideFlags: 0

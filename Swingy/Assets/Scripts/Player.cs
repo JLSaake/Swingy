@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour{
     public Rope rope;
+    public float launchCoefficient = 2;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start(){
         rope = gameObject.GetComponentInParent<Rope>();
-    }
-
-    void launch(){
-        transform.parent = null;
-        rope = null;
     }
 
     // Update is called once per frame
@@ -31,7 +28,19 @@ public class Player : MonoBehaviour{
             }
 
             if(Input.GetButtonDown("Jump")){
+                launch();
             }
         }
+        else{
+            gameObject.transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * Mathf.Atan(rb.velocity.x / rb.velocity.y));
+        }
+    }
+
+    void launch(){
+        gameObject.AddComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>(); 
+        rb.velocity = launchCoefficient * rope.GetVelocity();
+        transform.parent = null;
+        rope = null;
     }
 }

@@ -155,6 +155,13 @@ public class Rope : MonoBehaviour
         this.minAngle = angle;
     }
 
+    public Vector2 GetVelocity(){
+        return rb.velocity;
+    }
+
+    public float GetAngularVelocity(){
+        return rb.angularVelocity;
+    }
 
     #endregion
 
