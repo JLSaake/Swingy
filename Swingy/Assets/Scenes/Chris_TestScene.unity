@@ -143,6 +143,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rope: {fileID: 4506492608225380431, guid: 9d9c90544c036bb4c8708dac44c4e8da, type: 3}
+  ropeLengthLow: 2
+  ropeLengthHigh: 0
+  averageRopeSpacing: 2
+  ropeSpacingVariation: 0.274
 --- !u!212 &192255377
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -199,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192255375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0352167, y: -0.17245536, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
