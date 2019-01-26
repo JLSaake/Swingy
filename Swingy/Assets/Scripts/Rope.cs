@@ -40,13 +40,9 @@ public class Rope : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         hj = this.GetComponent<HingeJoint2D>();
-        float oldY = this.transform.localScale.y;
         parent = this.gameObject.GetComponentInParent<ParentRope>();
 
-        parent.ChangeScale(length);
-        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,
-                                                         this.gameObject.transform.position.y + hj.connectedAnchor.y,
-                                                         this.gameObject.transform.position.z);
+        LengthChange();
 
 
     }
@@ -54,31 +50,44 @@ public class Rope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Temp Changes
+
     }
+
 
     #region Player Inputs
 
     // Add force to the rope to swing it to the left (backward)
-    public void ForceLeft()
+    public void ForceLeft(float axisMagnitude)
     {
         if (this.rb.rotation < minAngle && this.rb.rotation > -maxAngle)
         {
-            this.rb.AddForce(Vector2.left * forceModifier);
+            this.rb.AddForce(Vector2.left * forceModifier * Mathf.Abs(axisMagnitude));
         }
     }
 
     // Add force to the rope to swing it to the right (forward)
-    public void ForceRight()
+    public void ForceRight(float axisMagnitude)
     {
         if (this.rb.rotation > -minAngle && this.rb.rotation < maxAngle)
         {
-            this.rb.AddForce(Vector2.right * forceModifier);
+            this.rb.AddForce(Vector2.right * forceModifier * Mathf.Abs(axisMagnitude));
         }
     }
 
     #endregion
 
+    #region Helper Functions
+
+    private void LengthChange()
+    {
+        parent.ChangeScale(length);
+        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                                                         this.gameObject.transform.position.y + hj.connectedAnchor.y,
+                                                         this.gameObject.transform.position.z);
+    }
+
+    #endregion
 
     #region Getters & Setters
     public float GetLength()
@@ -89,7 +98,7 @@ public class Rope : MonoBehaviour
     public void SetLength(float len)
     {
         this.length = len;
-        // TODO: Update length
+        LengthChange();
     }
 
     public Vector2 GetHingePoint()
