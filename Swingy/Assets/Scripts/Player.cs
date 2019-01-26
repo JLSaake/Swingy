@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour{
     public Rope rope;
-    public float launchCoefficient = 2;
+    public float launchCoefficient = 3;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -18,7 +18,6 @@ public class Player : MonoBehaviour{
             //Rope Movement
             float rawHorizontal = 0;
             rawHorizontal = Input.GetAxisRaw("Horizontal");
-            // Debug.Log(rawHorizontal);
 
             if(rawHorizontal > 0){
                 rope.ForceRight(rawHorizontal);
@@ -27,6 +26,7 @@ public class Player : MonoBehaviour{
                 rope.ForceLeft(rawHorizontal);
             }
 
+            //Jumping
             if(Input.GetButtonDown("Jump")){
                 launch();
             }
@@ -36,11 +36,25 @@ public class Player : MonoBehaviour{
         }
     }
 
+    // void OnCollisionEnter2D(Collision2D collision){
+    //     if(collision.gameObject.CompareTag("Rope")){
+    //         // transform.parent = collision.gameObject.transform;
+    //         // rope = GetComponentInParent<Rope>();
+    //         grabRope(collision.gameObject);
+    //     }
+    // }
+
     void launch(){
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
+        gameObject.AddComponent<BoxCollider2D>();
         transform.parent = null;
         rope = null;
+    }
+
+    void grabRope(GameObject grabbedRope){
+        transform.parent = grabbedRope.transform;
+        rope = gameObject.GetComponentInParent<Rope>();
     }
 }
