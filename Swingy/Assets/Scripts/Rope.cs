@@ -31,6 +31,7 @@ public class Rope : MonoBehaviour
     private Rigidbody2D rb;
     private HingeJoint2D hj;
     private ParentRope parent;
+    private Vector3 originalPosition;
     // TODO: Add functionality for moving ropes, both swinging and point moving
 
 
@@ -41,6 +42,7 @@ public class Rope : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         hj = this.GetComponent<HingeJoint2D>();
         parent = this.gameObject.GetComponentInParent<ParentRope>();
+        originalPosition = this.gameObject.transform.position;
 
         LengthChange();
 
@@ -51,6 +53,14 @@ public class Rope : MonoBehaviour
     void Update()
     {
         // Temp Changes
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            this.SetLength(length - 0.2f);
+        } else
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+        {
+            this.SetLength(length + 0.2f);
+        }
 
     }
 
@@ -81,6 +91,9 @@ public class Rope : MonoBehaviour
 
     private void LengthChange()
     {
+        parent.ChangeScale(1);
+        this.gameObject.transform.position = originalPosition;
+
         parent.ChangeScale(length);
         this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,
                                                          this.gameObject.transform.position.y + hj.connectedAnchor.y,
