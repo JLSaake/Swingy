@@ -41,5 +41,11 @@ public class House : MonoBehaviour
             frontWindowRenderer.material.SetColor("_FlowColor", choices[1]);
         }
 
+        if (score > thresholds[2])
+        {
+            var main = chimney.main;
+            main.startColor = new Color(choices[2].r, choices[2].g, choices[2].b, 1.0f);
+        }
+
     }
 }
