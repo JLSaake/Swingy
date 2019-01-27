@@ -92,7 +92,7 @@ public class Procedural : MonoBehaviour
         // Generate level
         for(int i=0; i<numRopes; ++i)
         {
-            jumpBack = i<numRopes-2 && (float)rand.NextDouble() < backtrackChance;
+            jumpBack = i<numRopes-4 && (float)rand.NextDouble() < backtrackChance;
             nextRope();
         }
     }
@@ -163,7 +163,7 @@ public class Procedural : MonoBehaviour
                 if(climb)   lengthOffset = -2.5f;
                 else        lengthOffset = -1.5f;
                 tempScript.SetLength(Vector2.Distance(tempObstacle.transform.position, new Vector2(lastX, lastY))/2f + lengthOffset );
-                tempScript.SetTorque(8f * (-12f + (float)rand.NextDouble()));
+                tempScript.SetTorque(7f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0.05f);
             }
             else if(obsChoice < 0.63)  // Blockers
@@ -179,8 +179,8 @@ public class Procedural : MonoBehaviour
                     if(Math.Abs(obstacleX - lastX) < 6.0f)
                     {
                         obstacleY = lastY - 3.4f + (float)rand.NextDouble() * 1.9f;
-                        if(obstacleX > lastX)   obstacleX += 1f;
-                        else    obstacleX -= 1f;
+                        if(obstacleX > lastX)   obstacleX += 1.2f;
+                        else    obstacleX -= 1.2f;
                     }
                 }
                 
@@ -192,6 +192,13 @@ public class Procedural : MonoBehaviour
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
                 float obstacleY = Mathf.Min(0.3f*lastY + 0.7f*yPos, lastY + 0.9f) - 6.2f + (float)rand.NextDouble() * 1.9f;
+
+                if(Math.Abs(obstacleX - lastX) < 6.0f)
+                {
+                    obstacleY = lastY - 3.4f + (float)rand.NextDouble() * 1.9f;
+                    if(obstacleX > lastX)   obstacleX += 1.2f;
+                    else    obstacleX -= 1.2f;
+                }
                 
                 GameObject tempSpike = Instantiate(spike, new Vector2(obstacleX, obstacleY), Quaternion.identity);
                 // if(dx < 0.48 && rand.NextDouble() < 0.5) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
