@@ -38,9 +38,9 @@ public class Procedural : MonoBehaviour
     HeightGain heightGain;
     float obsSpawn;
 
-    public int level1Ropes = 15;
-    public int level2Ropes = 16;
-    public int level3Ropes = 17;
+    public static int level1Ropes = 15;
+    public static int level2Ropes = 16;
+    public static int level3Ropes = 17;
     private static int maxRopes;
 
     // Internal state management per level
@@ -202,6 +202,21 @@ public class Procedural : MonoBehaviour
     public static int GetMaxRopes()
     {
         return maxRopes;
+    }
+
+    public static int GetLevel1Ropes()
+    {
+        return level1Ropes;
+    }
+
+    public static int GetLevel2Ropes()
+    {
+        return level2Ropes;
+    }
+    
+    public static int GetLevel3Ropes()
+    {
+        return level3Ropes;
     }
 
 }
