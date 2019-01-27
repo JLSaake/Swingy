@@ -52,15 +52,6 @@ public class Rope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Temp Changes
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
-        {
-            this.SetLength(length - 0.2f);
-        } else
-        if (Input.GetKeyDown(KeyCode.RightBracket))
-        {
-            this.SetLength(length + 0.2f);
-        }
 
     }
 
