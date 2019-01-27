@@ -61,15 +61,18 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CB: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
+    - _FlowActive: 0
     - _FlowOffset: 0.1
-    - _FlowSpeed: 0.3
+    - _FlowSpeed: 0.75
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
+    - _MyTime: 0
     - _OcclusionStrength: 1
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
@@ -80,6 +83,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_EA803CF4: {r: 0.48253393, g: 0, b: 1, a: 0}
+    - _CBFlowColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowColor: {r: 0.6879717, g: 0.4305358, b: 0.7075472, a: 0}
