@@ -204,7 +204,7 @@ public class ColorSelect : MonoBehaviour
     {
         float alpha = 0.0f;
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(startPos.x,startPos.y + 12.5f,startPos.z);
+        Vector3 endPos = new Vector3(startPos.x,startPos.y + 24.5f,startPos.z);
         do {
             alpha += Time.deltaTime * shrinkRate * 0.33f;
             transform.position = Vector3.Lerp(startPos,endPos,alpha);
