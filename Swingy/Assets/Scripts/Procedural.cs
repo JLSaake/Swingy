@@ -117,8 +117,9 @@ public class Procedural : MonoBehaviour
         if(rand.NextDouble() < obsSpawn)
         {
             // Create an obstacle
+            double obsChoice = rand.NextDouble();
 
-            if(rand.NextDouble() < 0.1)
+            if(obsChoice < 0.0)
             {
                 float obstPos;
                 if(climb)   obstPos = -5f - (float)rand.NextDouble() * 0.9f;
@@ -133,7 +134,7 @@ public class Procedural : MonoBehaviour
                 tempScript.SetTorque(10f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0.05f);
             }
-            else
+            else if(obsChoice < 0.0)
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
@@ -149,6 +150,16 @@ public class Procedural : MonoBehaviour
                 GameObject tempBlockObstacle = Instantiate(blocker, new Vector2(obstacleX, obstacleY), Quaternion.identity);
                 tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 1.6f);
             }
+            else
+            {
+                float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
+                float obstacleX = (dx*xPos + (1f-dx)*lastX);
+                float obstacleY = (lastY + yPos) / 2f - 6.2f + (float)rand.NextDouble() * 1.5f;
+                
+                GameObject tempSpike = Instantiate(spike, new Vector2(obstacleX, obstacleY), Quaternion.identity);
+                if(dx < 0.47 && rand.NextDouble() < 0.4) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
+            }
+
         }
 
         lastX = xPos;
