@@ -85,6 +85,10 @@ public class Rope : MonoBehaviour
         }
     }
 
+    public void destroyCollider(){
+        Destroy(gameObject.GetComponent<BoxCollider2D>());
+    }
+
     #endregion
 
     #region Helper Functions
