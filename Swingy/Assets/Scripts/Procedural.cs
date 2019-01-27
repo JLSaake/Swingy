@@ -43,7 +43,7 @@ public class Procedural : MonoBehaviour
         // generateLevel(15, 16, new Vector2(0, 2.81f), HeightIncrement.Decrease, 0f);
 
         // Level 2 config
-        generateLevel(16, 35, new Vector2(0, 2.81f), HeightIncrement.Linear, 0.6f);
+        generateLevel(16, 35, new Vector2(0, 2.81f), HeightIncrement.Linear, 0.5f);
         
         // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
@@ -113,9 +113,12 @@ public class Procedural : MonoBehaviour
 
         if(rand.NextDouble() < obsSpawn)
         {
+            // Create an obstacle
+
+            //if(rand.NextDouble() )
             float obstPos;
-            if(climb)   obstPos = -5f;
-            else    obstPos = 2.5f;
+            if(climb)   obstPos = -5f - (float)rand.NextDouble() * 0.9f;
+            else    obstPos = 2.7f + (float)rand.NextDouble() * 0.6f;
             GameObject tempObstacle = Instantiate(rotatingObstacle, new Vector2((xPos + lastX)/2.0f, (float)height + lastY + obstPos), Quaternion.identity);
             var tempScript = tempObstacle.GetComponent<RotatingObstacleHinge>(); 
             //tempScript.SetLength(Mathf.Min(averageRopeSpacing * spacingChange/5.8f, Vector2.Distance(tempObstacle.transform.position, tempRope.transform.position)));
