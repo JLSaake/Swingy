@@ -54,15 +54,17 @@ public class Player : MonoBehaviour{
     }
 
     void launch(){
+        StopAllCoroutines();
         rope.destroyCollider();
         gameObject.AddComponent<BoxCollider2D>();
+
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
+        rb.mass = mass;
 
         cam.SetOffset(cam.transform.position - this.transform.position);
 
-        rb.mass = mass;
         transform.parent = null;
         rope = null;
     }
