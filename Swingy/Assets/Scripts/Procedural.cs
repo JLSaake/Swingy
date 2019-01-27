@@ -19,6 +19,7 @@ public enum HeightGain
 public class Procedural : MonoBehaviour
 {
 
+    public Transform firstRope;
     public GameObject rope;
     public GameObject rotatingObstacle;
     public GameObject blocker;
@@ -58,12 +59,11 @@ public class Procedural : MonoBehaviour
         rand = new System.Random();
 
         // Level 1 config
-        // generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f, 0.0f);
+        // generateLevel(level1Ropes, 16, firstRope.transform.position, HeightIncrementType.Decrease, HeightGain.Trivial, 0f, 0.0f);
 
         // Level 2 config
-        generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Medium, 0.8f, 0.27f);
+        generateLevel(level2Ropes, 32, firstRope.transform.position, HeightIncrementType.Linear, HeightGain.Medium, 0.8f, 0.27f);
         
-        // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -101,9 +101,9 @@ public class Procedural : MonoBehaviour
     {
         float spacingChange = (float)(rand.NextDouble() + rand.NextDouble())*ropeSpacingVariation + 1f - ropeSpacingVariation;
         // Debug.Log(spacingChange);
-        float xPos = lastX + ((jumpBack) ? -0.77f : 1f) * averageRopeSpacing * spacingChange;
+        float xPos = lastX + ((jumpBack) ? -0.71f : 1f) * averageRopeSpacing * spacingChange;
         float yPos = lastY - 0.3f + (float)rand.NextDouble() * 0.8f;
-        if(jumpBack)   yPos = lastY + 4.8f - 1.1f * spacingChange;
+        if(jumpBack)   yPos = lastY + 5.0f - 1.1f * spacingChange;
         
         bool climb = false;
 
@@ -163,12 +163,12 @@ public class Procedural : MonoBehaviour
                 if(climb)   lengthOffset = -2.5f;
                 else        lengthOffset = -1.5f;
                 tempScript.SetLength(Vector2.Distance(tempObstacle.transform.position, new Vector2(lastX, lastY))/2f + lengthOffset );
-                tempScript.SetTorque(10f * (-12f + (float)rand.NextDouble()));
+                tempScript.SetTorque(8f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0.05f);
             }
             else if(obsChoice < 0.63)  // Blockers
             {
-                float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
+                float dx = (float)(rand.NextDouble()) * 0.2f + 0.45f;   // Between 0.45 and 0.65
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
                 float dy = Mathf.Pow((float)(rand.NextDouble() + 0.5) / 2f, 2f) + 0.1875f;   // Between 0.25 and 0.75, weighted towards edges
                 float obstacleY;
@@ -176,10 +176,11 @@ public class Procedural : MonoBehaviour
                 else
                 {
                     obstacleY = (dy * yPos + (1f-dy) * lastY) - 8.5f + (Mathf.Pow(dy + 0.5f, 1.5f) - 0.5f) * 8.5f;
-                    if(obstacleX - lastX < 5.5f)
+                    if(Math.Abs(obstacleX - lastX) < 6.0f)
                     {
-                        obstacleY = lastY - 3f + (float)rand.NextDouble() * 2f;
-                        obstacleX += 0.5f;
+                        obstacleY = lastY - 3.4f + (float)rand.NextDouble() * 1.9f;
+                        if(obstacleX > lastX)   obstacleX += 1f;
+                        else    obstacleX -= 1f;
                     }
                 }
                 

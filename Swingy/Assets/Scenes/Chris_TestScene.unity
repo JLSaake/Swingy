@@ -228,6 +228,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!4 &279880125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 701787206953858232, guid: a6b519186c3476b40bfe9fa85c539716,
+    type: 3}
+  m_PrefabInstance: {fileID: 800371132}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &549112338
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +779,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
+        type: 3}
+      propertyPath: firstRope
+      value: 
+      objectReference: {fileID: 279880125}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a529621ddf9f33d43b0576572bb37567, type: 3}
 --- !u!1 &1734139787
