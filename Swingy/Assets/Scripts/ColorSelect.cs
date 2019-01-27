@@ -10,9 +10,9 @@ public class ColorSelect : MonoBehaviour
     public float shrinkRate = 1.0f;
 
     [SerializeField]
-    private List<GameObject> panels;
+    private List<GameObject> panels = new List<GameObject>();
     [SerializeField]
-    private List<Color> panelColors;
+    private List<Color> panelColors = new List<Color>();
 
     [SerializeField]
     private List<TextMeshPro> labelTMP = new List<TextMeshPro>();

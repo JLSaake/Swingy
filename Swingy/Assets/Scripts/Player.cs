@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour{
     public Rope rope;
-    public float launchCoefficient = 3;
+    public float launchCoefficient = 3.0f;
     public float mass = 0.8f;
+    public float maxYBeforeDeath = 15.0f;
     public ParticleSystem ropeCollision;
+    public GameObject housePrefab;
 
     private Rigidbody2D rb;
     private Camera cam;
     private Vector2 cameraOffset;
     private bool camPostMove;
+    private float lastRopeY; // Used to determine if the player should die
+    private bool hasDied;
 
     // Start is called before the first frame update
     void Start(){
@@ -42,9 +46,14 @@ public class Player : MonoBehaviour{
                 launch();
             }
         }
-        else{
+        else {
             gameObject.transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * Mathf.Atan(rb.velocity.x / rb.velocity.y));
             cam.Move(this.transform.position);
+
+            if (lastRopeY - transform.position.y > maxYBeforeDeath)
+            {
+                initDeath(transform.position, GetComponent<Rigidbody2D>());
+            }
         }
 
     }
@@ -56,10 +65,21 @@ public class Player : MonoBehaviour{
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("House")) {
+            GetComponent<SpriteRenderer>().enabled = false;
+            // Set house colors
+            // Fire off some particle effects if applicable, prompt "R" to restart
+            
+        }
+    }
+
     void launch(){
         StopAllCoroutines();
         rope.destroyCollider();
         gameObject.AddComponent<BoxCollider2D>();
+        lastRopeY = rope.transform.parent.position.y;
 
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
@@ -128,6 +148,7 @@ public class Player : MonoBehaviour{
     void grabRope(GameObject grabbedRope){
         transform.parent = grabbedRope.transform;
         rope = gameObject.GetComponentInParent<Rope>();
+        lastRopeY = 0.0f;
 
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         Destroy(gameObject.GetComponent<Rigidbody2D>());
@@ -147,5 +168,17 @@ public class Player : MonoBehaviour{
         ParticleSystem particle = Instantiate(ropeCollision, pos, Quaternion.identity);
         particle.Play();
         Destroy(particle.gameObject, particle.main.duration + 1);
+    }
+
+    private void initDeath(Vector3 position, Rigidbody2D playerRB)
+    {
+        if (hasDied) return;
+        float time = 1.0f;
+
+        float newX = position.x + playerRB.velocity.x * time;
+        float newY = position.y + playerRB.velocity.y * time - (1f/2f) * (9.8f * playerRB.gravityScale) * Mathf.Pow(time,2);
+
+        Instantiate(housePrefab, new Vector3(newX, newY, -1.17f), Quaternion.identity);
+        hasDied = true;
     }
 }
