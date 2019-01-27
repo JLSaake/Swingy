@@ -9,6 +9,7 @@ public class Player : MonoBehaviour{
     public float maxYBeforeDeath = 15.0f;
     public ParticleSystem ropeCollision;
     public GameObject housePrefab;
+    public bool pickingColors = false;
 
     private Rigidbody2D rb;
     private Camera cam;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        if (pickingColors) return;
 
         if (rope){
             //Rope Movement

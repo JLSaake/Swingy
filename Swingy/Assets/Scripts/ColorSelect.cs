@@ -17,6 +17,9 @@ public class ColorSelect : MonoBehaviour
     [SerializeField]
     private List<TextMeshPro> labelTMP = new List<TextMeshPro>();
 
+    [SerializeField]
+    private SpriteRenderer shield;
+
     // TODO: UI element to interpolate each panel to these
     [SerializeField]
     private List<Color> colorBlindPanelColors;
@@ -40,6 +43,14 @@ public class ColorSelect : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.ChoicesCount() >= 3)
+        {
+            // yield control to the player
+            Player player = FindObjectOfType<Player>();
+            player.pickingColors = false;
+
+            Destroy(this.gameObject);
+        }
         // 1:1 match the panels with a panel color
         for (int i = 0; i < panels.Count; i++)
         {
@@ -48,7 +59,12 @@ public class ColorSelect : MonoBehaviour
             flowAnims.Add(panels[i].transform.parent.gameObject.GetComponent<Animator>());
             m.SetColor("_FlowColor", panelColors[i]);
             m.SetColor("_CBFlowColor", colorBlindPanelColors[i]);
+            panels[i].GetComponent<MeshRenderer>().sortingOrder = 1;
             flowMats.Add(m);
+        }
+        foreach (TextMeshPro tmp in labelTMP)
+        {
+            tmp.gameObject.GetComponent<MeshRenderer>().sortingOrder = 1;
         }
         StartCoroutine(lerpColor(0.0f,1.0f,0));
     }
@@ -85,7 +101,6 @@ public class ColorSelect : MonoBehaviour
             // Play the animation for selecting the color
             flowAnims[selectIndex].Play("Pick");
 
-
             // Play a cool sound effect for selecting
 
             // Prevent picker from cycling into this color again
@@ -95,9 +110,7 @@ public class ColorSelect : MonoBehaviour
             if (GameManager.AddColor(cb ? colorBlindPanelColors[selectIndex] : panelColors[selectIndex]) == 3)
             {
                 // fade this out, move on
-                StartCoroutine(lerpPrompt(0, false));
-                StartCoroutine(lerpPrompt(1, false));
-                StartCoroutine(shrink()); 
+                initEnd();
             }
             else
             {
@@ -176,16 +189,39 @@ public class ColorSelect : MonoBehaviour
         }
     }
 
+    private IEnumerator lerpShield()
+    {
+        float alpha = 1.0f;
+        do {
+            alpha -= Time.deltaTime * shrinkRate * 2.0f;
+            shield.color = new Color(shield.color.r,shield.color.g,shield.color.b,alpha);
+            yield return null;
+        } while (alpha >= 0.0f);
+    }
+
     private IEnumerator shrink()
     {
         float alpha = 0.0f;
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(0f,8.3f,0f);
+        Vector3 endPos = new Vector3(startPos.x,startPos.y + 12.5f,startPos.z);
         do {
-            alpha += Time.deltaTime * shrinkRate * 0.25f;
+            alpha += Time.deltaTime * shrinkRate * 0.75f;
             transform.position = Vector3.Lerp(startPos,endPos,alpha);
             yield return null;
         } while (alpha <= 1.0f);
-        // TODO: use GameManager to yield control to the player
+
+        // yield control to the player
+        Player player = FindObjectOfType<Player>();
+        player.pickingColors = false;
+
+        Destroy(this.gameObject);
+    }
+
+    private void initEnd()
+    {
+        StartCoroutine(lerpPrompt(0, false));
+        StartCoroutine(lerpPrompt(1, false));
+        StartCoroutine(lerpShield());
+        StartCoroutine(shrink()); 
     }
 }

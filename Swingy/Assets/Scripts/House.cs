@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class House : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    [SerializeField]
+    private List<int> thresholds = new List<int>();
+
     [SerializeField]
     private MeshRenderer backWindowRenderer;
 
@@ -27,6 +30,16 @@ public class House : MonoBehaviour
 
     public void init(int score)
     {
+        List<Color> choices = GameManager.GetColorChoices();
+        if (score > thresholds[0])
+        {
+            backWindowRenderer.material.SetColor("_FlowColor", choices[0]);
+        }
         
+        if (score > thresholds[1])
+        {
+            frontWindowRenderer.material.SetColor("_FlowColor", choices[1]);
+        }
+
     }
 }
