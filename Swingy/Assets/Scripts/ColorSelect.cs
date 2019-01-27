@@ -91,7 +91,7 @@ public class ColorSelect : MonoBehaviour
             cb = !cb;
         }
 
-        if (Input.GetAxisRaw("Horizontal") != 0f)
+        if (Input.GetAxisRaw("Horizontal") != 0f && promptStage < 3)
         {
             cycleSelection((int)(Input.GetAxisRaw("Horizontal")));
         }
@@ -135,7 +135,8 @@ public class ColorSelect : MonoBehaviour
             }
         }
 
-        lastDirection = (int)Input.GetAxisRaw("Horizontal");
+        if (promptStage < 3)
+            lastDirection = (int)Input.GetAxisRaw("Horizontal");
 
     }
 
@@ -210,15 +211,16 @@ public class ColorSelect : MonoBehaviour
             yield return null;
         } while (alpha <= 1.0f);
 
+
         // yield control to the player
         Player player = FindObjectOfType<Player>();
         player.pickingColors = false;
-
         Destroy(this.gameObject);
     }
 
     private void initEnd()
     {
+
         StartCoroutine(lerpPrompt(0, false));
         StartCoroutine(lerpPrompt(1, false));
         foreach (SpriteRenderer sr in spriteRenderers)

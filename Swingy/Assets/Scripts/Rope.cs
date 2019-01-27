@@ -26,6 +26,8 @@ public class Rope : MonoBehaviour
     [Tooltip("Starting angle to begin applying force on downswing")]
     public float minAngle = 25;
 
+    public int id; // ID = order of instantiation
+
     #endregion
 
     private Rigidbody2D rb;

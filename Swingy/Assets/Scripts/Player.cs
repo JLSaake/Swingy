@@ -21,7 +21,7 @@ public class Player : MonoBehaviour{
     private bool hasDied;
     private RopeParticleManager particleManager;
     
-    private int ropesCaught; // High scores!
+    private int furthestRope = 0; // High scores!
 
     // Start is called before the first frame update
     void Start(){
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour{
             vel = new Vector3(vel.x * 0.001f, vel.y * 0.001f, vel.z * 0.001f);
             // Set house colors
             // Fire off some particle effects if applicable, prompt "R" to restart
-            collider.gameObject.GetComponent<House>().init(ropesCaught);
+            collider.gameObject.GetComponent<House>().init(furthestRope);
         }
     }
 
@@ -180,7 +180,8 @@ public class Player : MonoBehaviour{
         StartCoroutine(cam.MoveToRope(this.transform.parent.gameObject.transform.parent.transform.position));
         
         lastRopeY = 0.0f;
-        ropesCaught++;
+        Rope r = grabbedRope.GetComponent<Rope>();
+        furthestRope = r.id > furthestRope ? r.id : furthestRope;
     }
 
 

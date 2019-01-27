@@ -38,10 +38,11 @@ public class Procedural : MonoBehaviour
     HeightGain heightGain;
     float obsSpawn;
 
-    public static int level1Ropes = 15;
-    public static int level2Ropes = 16;
-    public static int level3Ropes = 17;
+    public int level1Ropes = 15;
+    public int level2Ropes = 15;
+    public int level3Ropes = 15;
     private static int maxRopes;
+    private int currentID = 1;
 
     // Internal state management per level
     int height;
@@ -141,10 +142,11 @@ public class Procedural : MonoBehaviour
                 }
                 
             }
-
         }
+
         GameObject tempRope;
         tempRope = Instantiate(rope, new Vector2(xPos, yPos), Quaternion.identity);
+        tempRope.transform.GetChild(0).GetComponent<Rope>().id = currentID++; 
 
         if(rand.NextDouble() < obsSpawn)
         {
@@ -210,20 +212,4 @@ public class Procedural : MonoBehaviour
     {
         return maxRopes;
     }
-
-    public static int GetLevel1Ropes()
-    {
-        return level1Ropes;
-    }
-
-    public static int GetLevel2Ropes()
-    {
-        return level2Ropes;
-    }
-    
-    public static int GetLevel3Ropes()
-    {
-        return level3Ropes;
-    }
-
 }
