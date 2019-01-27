@@ -30,6 +30,7 @@ public class Player : MonoBehaviour{
         cameraOffset = cam.transform.position - this.transform.parent.gameObject.transform.parent.transform.position;
         cam.SetOffset(cameraOffset);
         particleManager = FindObjectOfType<RopeParticleManager>();
+        audioSource.volume = 0;
     }
 
     // Update is called once per frame
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour{
             if(Input.GetButtonDown("Jump")){
                 launch();
                 audioSource.pitch = Random.Range(1 / audioVariance, 1f);
-                gameObject.GetComponent<AudioSource>().Play();
+                audioSource.Play();
             }
         }
         else {
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour{
         if (collision.gameObject.CompareTag("Rope")) {
             grabRope(collision.gameObject);
             audioSource.pitch = Random.Range(1f, 1 * audioVariance);
-            gameObject.GetComponent<AudioSource>().Play();
+            audioSource.Play();
             particleManager.spawnRopeParticle(collision.GetContact(0).point);
         }
     }
@@ -89,6 +90,9 @@ public class Player : MonoBehaviour{
 
     void launch(){
         StopAllCoroutines();
+        if(audioSource.volume == 0){
+            audioSource.volume = 1;
+        }
         rope.destroyCollider();
         gameObject.AddComponent<BoxCollider2D>();
         lastRopeY = rope.transform.parent.position.y;
