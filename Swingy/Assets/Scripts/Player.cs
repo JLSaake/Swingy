@@ -54,9 +54,10 @@ public class Player : MonoBehaviour{
 
     IEnumerator centerX(){
         Vector3 start = gameObject.transform.localPosition;
-        Vector3 destination = new Vector3(0, gameObject.transform.localPosition.y, 0);
+        // Vector3 destination = new Vector3(0, gameObject.transform.localPosition.y, 0);
+        Vector3 destination = new Vector3(0, -2, 0);
         float elapsedTime = 0f;
-        float time = 0.1f;
+        float time = 0.5f;
 
         while(elapsedTime < time){
             transform.localPosition = Vector3.Lerp(start, destination, elapsedTime / time);
