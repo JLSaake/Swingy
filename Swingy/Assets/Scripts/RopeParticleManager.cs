@@ -51,15 +51,15 @@ public class RopeParticleManager : MonoBehaviour
         Color chosenColor = colorChoices[rand];
         if (ratio >=0 && ratio < 0.3f)
         {
-            chosenColor.a = 0.3f;
+            chosenColor.a = 0.5f;
         } else 
         if (ratio >= 0.3f && ratio < 0.6f)
         {
-            chosenColor.a = 0.6f;
+            chosenColor.a = 0.75f;
         } else
         if (ratio >= 0.6f)
         {
-            chosenColor.a = 0.8f;
+            chosenColor.a = 1f;
         }
         particle.startColor = chosenColor;
 
