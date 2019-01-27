@@ -5029,6 +5029,7 @@ MonoBehaviour:
   backWindowRenderer: {fileID: 5609688759031789619}
   frontWindowRenderer: {fileID: 6772534719521116921}
   chimney: {fileID: 8161807754560101858}
+  fireworks: {fileID: 0}
 --- !u!1 &3974112808973389830
 GameObject:
   m_ObjectHideFlags: 0

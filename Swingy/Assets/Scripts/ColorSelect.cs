@@ -18,7 +18,7 @@ public class ColorSelect : MonoBehaviour
     private List<TextMeshPro> labelTMP = new List<TextMeshPro>();
 
     [SerializeField]
-    private SpriteRenderer shield;
+    private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
     // TODO: UI element to interpolate each panel to these
     [SerializeField]
@@ -189,12 +189,12 @@ public class ColorSelect : MonoBehaviour
         }
     }
 
-    private IEnumerator lerpShield()
+    private IEnumerator lerpSprite(SpriteRenderer sr)
     {
         float alpha = 1.0f;
         do {
             alpha -= Time.deltaTime * shrinkRate * 2.0f;
-            shield.color = new Color(shield.color.r,shield.color.g,shield.color.b,alpha);
+            sr.color = new Color(sr.color.r,sr.color.g,sr.color.b,alpha);
             yield return null;
         } while (alpha >= 0.0f);
     }
@@ -205,7 +205,7 @@ public class ColorSelect : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 endPos = new Vector3(startPos.x,startPos.y + 12.5f,startPos.z);
         do {
-            alpha += Time.deltaTime * shrinkRate * 0.75f;
+            alpha += Time.deltaTime * shrinkRate * 0.33f;
             transform.position = Vector3.Lerp(startPos,endPos,alpha);
             yield return null;
         } while (alpha <= 1.0f);
@@ -221,7 +221,10 @@ public class ColorSelect : MonoBehaviour
     {
         StartCoroutine(lerpPrompt(0, false));
         StartCoroutine(lerpPrompt(1, false));
-        StartCoroutine(lerpShield());
+        foreach (SpriteRenderer sr in spriteRenderers)
+        {
+            StartCoroutine(lerpSprite(sr));
+        }
         StartCoroutine(shrink()); 
     }
 }
