@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3124243770854695175}
   - component: {fileID: 3124243770854695176}
   - component: {fileID: 3124243770854695172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: orbit_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 3124243772255496490}
   - component: {fileID: 3124243772255496491}
   - component: {fileID: 3124243772255496489}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rotating Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

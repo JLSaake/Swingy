@@ -11,6 +11,7 @@ public class Player : MonoBehaviour{
     public float audioVariance = 1.5f;
     public GameObject housePrefab;
     public bool pickingColors = false;
+    public float axisMultiplier = 1f;
 
     private Rigidbody2D rb;
     private Camera cam;
@@ -44,10 +45,10 @@ public class Player : MonoBehaviour{
             rawHorizontal = Input.GetAxisRaw("Horizontal");
 
             if(rawHorizontal > 0){
-                rope.ForceRight(rawHorizontal);
+                rope.ForceRight(axisMultiplier * rawHorizontal);
             }
             else if(rawHorizontal < 0){
-                rope.ForceLeft(rawHorizontal);
+                rope.ForceLeft(axisMultiplier * rawHorizontal);
             }
 
             //Jumping
