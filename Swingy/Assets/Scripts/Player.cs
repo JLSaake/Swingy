@@ -7,15 +7,23 @@ public class Player : MonoBehaviour{
     public float launchCoefficient = 3;
     public float mass = 0.8f;
     private Rigidbody2D rb;
+    private Camera cam;
+    private Vector2 cameraOffset;
+    private bool camPostMove;
 
     // Start is called before the first frame update
     void Start(){
         rope = gameObject.GetComponentInParent<Rope>();
+        cam = FindObjectOfType<Camera>();
+        cameraOffset = cam.transform.position - this.transform.parent.gameObject.transform.parent.transform.position;
+        cam.SetOffset(cameraOffset);
+        
     }
 
     // Update is called once per frame
     void Update(){
-        if(rope){
+
+        if (rope){
             //Rope Movement
             float rawHorizontal = 0;
             rawHorizontal = Input.GetAxisRaw("Horizontal");
@@ -34,7 +42,9 @@ public class Player : MonoBehaviour{
         }
         else{
             gameObject.transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * Mathf.Atan(rb.velocity.x / rb.velocity.y));
+            cam.Move(this.transform.position);
         }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -49,6 +59,9 @@ public class Player : MonoBehaviour{
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
+
+        cam.SetOffset(cam.transform.position - this.transform.position);
+
         rb.mass = mass;
         transform.parent = null;
         rope = null;
@@ -106,15 +119,21 @@ public class Player : MonoBehaviour{
         }
     }
 
+
     void grabRope(GameObject grabbedRope){
         transform.parent = grabbedRope.transform;
         rope = gameObject.GetComponentInParent<Rope>();
 
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         Destroy(gameObject.GetComponent<Rigidbody2D>());
+
         rb = null;
 
         StartCoroutine(center());
         StartCoroutine(spin());
+
+        cam.SetOffset(cameraOffset);
+        StartCoroutine(cam.MoveToRope(this.transform.parent.gameObject.transform.parent.transform.position));
+
     }
 }
