@@ -10,6 +10,7 @@ public class Player : MonoBehaviour{
     public ParticleSystem ropeCollision;
     public float audioVariance = 1.5f;
     public GameObject housePrefab;
+    public bool pickingColors = false;
 
     private Rigidbody2D rb;
     private Camera cam;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        if (pickingColors) return;
 
         if (rope){
             //Rope Movement

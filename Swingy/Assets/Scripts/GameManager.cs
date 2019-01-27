@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Reset"))
         {
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(Application.loadedLevel);
         }
     }
 
@@ -30,6 +32,15 @@ public class GameManager : MonoBehaviour
     // Here's an interface, its probably easier for you to manage which color you want
     public static List<Color> GetColorChoices()
     {
+        if (colorChoices.Count < 3)
+        {
+            Debug.LogWarning("Color choices were not initialized in the start properly!");
+        }
         return colorChoices;
+    }
+
+    public static int ChoicesCount()
+    {
+        return colorChoices.Count;
     }
 }

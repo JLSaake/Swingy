@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 8161807754560101858}
   - component: {fileID: 8480756404224824368}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4912,6 +4912,7 @@ GameObject:
   - component: {fileID: 1274596408103282076}
   - component: {fileID: 1274596408103282079}
   - component: {fileID: 663280249292597691}
+  - component: {fileID: 201583220}
   m_Layer: 0
   m_Name: House
   m_TagString: House
@@ -5012,6 +5013,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.4365053, y: 4.339142}
   m_EdgeRadius: 0
+--- !u!114 &201583220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274596408103282078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6044312e527fc42a2e5c9c0cf7ad05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thresholds: 010000000200000003000000
+  backWindowRenderer: {fileID: 5609688759031789619}
+  frontWindowRenderer: {fileID: 6772534719521116921}
+  chimney: {fileID: 8161807754560101858}
 --- !u!1 &3974112808973389830
 GameObject:
   m_ObjectHideFlags: 0
