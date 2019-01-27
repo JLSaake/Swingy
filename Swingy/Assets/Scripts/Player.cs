@@ -36,25 +36,43 @@ public class Player : MonoBehaviour{
         }
     }
 
-    // void OnCollisionEnter2D(Collision2D collision){
-    //     if(collision.gameObject.CompareTag("Rope")){
-    //         // transform.parent = collision.gameObject.transform;
-    //         // rope = GetComponentInParent<Rope>();
-    //         grabRope(collision.gameObject);
-    //     }
-    // }
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Rope")){
+            grabRope(collision.gameObject);
+        }
+    }
 
     void launch(){
+        rope.destroyCollider();
+        gameObject.AddComponent<BoxCollider2D>();
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
-        gameObject.AddComponent<BoxCollider2D>();
         transform.parent = null;
         rope = null;
+    }
+
+    IEnumerator centerX(){
+        Vector3 start = gameObject.transform.localPosition;
+        Vector3 destination = new Vector3(0, gameObject.transform.localPosition.y, 0);
+        float elapsedTime = 0f;
+        float time = 0.1f;
+
+        while(elapsedTime < time){
+            transform.localPosition = Vector3.Lerp(start, destination, elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     void grabRope(GameObject grabbedRope){
         transform.parent = grabbedRope.transform;
         rope = gameObject.GetComponentInParent<Rope>();
+
+        Destroy(gameObject.GetComponent<BoxCollider2D>());
+        Destroy(gameObject.GetComponent<Rigidbody2D>());
+        rb = null;
+
+        StartCoroutine(centerX());
     }
 }
