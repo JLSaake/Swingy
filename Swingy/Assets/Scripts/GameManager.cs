@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    private static List<Color> colorChoices = new List<Color>();
     void Start()
     {
         
@@ -17,5 +18,11 @@ public class GameManager : MonoBehaviour
         {
             Application.LoadLevel(Application.loadedLevel);
         }
+    }
+
+    public static int AddColor(Color c) 
+    {
+        colorChoices.Add(c);        
+        return colorChoices.Count;
     }
 }
