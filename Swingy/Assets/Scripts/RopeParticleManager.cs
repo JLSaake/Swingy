@@ -43,18 +43,7 @@ public class RopeParticleManager : MonoBehaviour
         // 3 will be the max number of colors chosen by the player
         int rand = Random.Range(0, 3);
         Color chosenColor = colorChoices[rand];
-        if (ratio >=0 && ratio < 0.3f)
-        {
-            chosenColor.a = 0.5f;
-        } else 
-        if (ratio >= 0.3f && ratio < 0.6f)
-        {
-            chosenColor.a = 0.75f;
-        } else
-        if (ratio >= 0.6f)
-        {
-            chosenColor.a = 1f;
-        }
+        chosenColor.a = 1;
         particle.startColor = chosenColor;
 
 
