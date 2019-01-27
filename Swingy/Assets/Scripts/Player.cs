@@ -16,6 +16,8 @@ public class Player : MonoBehaviour{
     private bool camPostMove;
     private float lastRopeY; // Used to determine if the player should die
     private bool hasDied;
+    
+    private int ropesCaught; // High scores!
 
     // Start is called before the first frame update
     void Start(){
@@ -69,9 +71,11 @@ public class Player : MonoBehaviour{
     {
         if (collider.gameObject.CompareTag("House")) {
             GetComponent<SpriteRenderer>().enabled = false;
+            Vector3 vel = GetComponent<Rigidbody2D>().velocity;
+            vel = new Vector3(vel.x * 0.001f, vel.y * 0.001f, vel.z * 0.001f);
             // Set house colors
             // Fire off some particle effects if applicable, prompt "R" to restart
-            
+            collider.gameObject.GetComponent<House>().init(ropesCaught);
         }
     }
 
@@ -148,7 +152,6 @@ public class Player : MonoBehaviour{
     void grabRope(GameObject grabbedRope){
         transform.parent = grabbedRope.transform;
         rope = gameObject.GetComponentInParent<Rope>();
-        lastRopeY = 0.0f;
 
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         Destroy(gameObject.GetComponent<Rigidbody2D>());
@@ -160,7 +163,9 @@ public class Player : MonoBehaviour{
 
         cam.SetOffset(cameraOffset);
         StartCoroutine(cam.MoveToRope(this.transform.parent.gameObject.transform.parent.transform.position));
-
+        
+        lastRopeY = 0.0f;
+        ropesCaught++;
     }
 
     private void SpawnParticles(Vector2 pos)
