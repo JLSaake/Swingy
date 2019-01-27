@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject housePrefab;
     private static List<Color> colorChoices = new List<Color>();
     void Start()
     {
@@ -24,5 +25,11 @@ public class GameManager : MonoBehaviour
     {
         colorChoices.Add(c);        
         return colorChoices.Count;
+    }
+
+    // Here's an interface, its probably easier for you to manage which color you want
+    public static List<Color> GetColorChoices()
+    {
+        return colorChoices;
     }
 }

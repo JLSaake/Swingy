@@ -37,6 +37,11 @@ public class Procedural : MonoBehaviour
     HeightGain heightGain;
     float obsSpawn;
 
+    public int level1Ropes = 15;
+    public int level2Ropes = 16;
+    public int level3Ropes = 17;
+    public int maxRopes;
+
     // Internal state management per level
     int height;
     float climbChance;
@@ -46,13 +51,14 @@ public class Procedural : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxRopes = level1Ropes + level2Ropes + level3Ropes;
         rand = new System.Random();
 
         // Level 1 config
-        generateLevel(15, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f);
+        generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f);
 
         // Level 2 config
-        // generateLevel(16, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Slight, 0.64f);
+        // generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Slight, 0.64f);
         
         // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
@@ -187,6 +193,11 @@ public class Procedural : MonoBehaviour
         // tempRope.transform.GetChild(0).gameObject.GetComponent<Rope>().SetLength(spacingChange + 1.1f);
         // Debug.Log(height + " " + climbChance);
         // return new Vector2(xPos, 1.5f * ((float)height) + lastY);
+    }
+
+    public int GetMaxRopes()
+    {
+        return maxRopes;
     }
 
 }
