@@ -34,7 +34,7 @@ public class Rope : MonoBehaviour
     private HingeJoint2D hj;
     private ParentRope parent;
     private Vector3 originalPosition;
-    // TODO: Add functionality for moving ropes, both swinging and point moving
+    private SpriteRenderer spriteR;
 
 
 
@@ -45,6 +45,7 @@ public class Rope : MonoBehaviour
         hj = this.GetComponent<HingeJoint2D>();
         parent = this.gameObject.GetComponentInParent<ParentRope>();
         originalPosition = this.gameObject.transform.position;
+        spriteR = this.gameObject.GetComponent<SpriteRenderer>();
 
         LengthChange();
 
@@ -79,6 +80,7 @@ public class Rope : MonoBehaviour
     }
 
     public void destroyCollider(){
+        StartCoroutine(FadeAway());
         Destroy(gameObject.GetComponent<PolygonCollider2D>());
     }
 
@@ -95,6 +97,21 @@ public class Rope : MonoBehaviour
         this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,
                                                          this.gameObject.transform.position.y + hj.connectedAnchor.y,
                                                          this.gameObject.transform.position.z);
+    }
+
+    private IEnumerator FadeAway()
+    {
+        Color startColor = spriteR.color;
+        float elapsedTime = 0f;
+        float time = 1f;
+
+
+        while (elapsedTime < time)
+        {
+            spriteR.color = Color.Lerp(startColor, new Color(0f, 0f, 0f, 0f), elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     #endregion
