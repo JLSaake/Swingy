@@ -99,5 +99,8 @@ MonoBehaviour:
   spike: {fileID: 7316929310255803160, guid: 89625b62a3fccaa4b8d0a7ec070ede1d, type: 3}
   ropeLengthLow: 2
   ropeLengthHigh: 0
-  averageRopeSpacing: 12
-  ropeSpacingVariation: 0.3
+  averageRopeSpacing: 14.5
+  ropeSpacingVariation: 0.14
+  level1Ropes: 15
+  level2Ropes: 16
+  level3Ropes: 17
