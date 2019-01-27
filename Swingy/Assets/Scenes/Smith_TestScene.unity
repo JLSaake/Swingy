@@ -657,17 +657,17 @@ PrefabInstance:
     - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
         type: 3}
       propertyPath: level1Ropes
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
         type: 3}
       propertyPath: level2Ropes
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
         type: 3}
       propertyPath: level3Ropes
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
         type: 3}
@@ -1021,21 +1021,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1274596408103282076, guid: ecbd36f9627aa224885a85ad53331f5b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.7043421
-      objectReference: {fileID: 0}
-    - target: {fileID: 1274596408103282076, guid: ecbd36f9627aa224885a85ad53331f5b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.7043421
-      objectReference: {fileID: 0}
-    - target: {fileID: 1274596408103282076, guid: ecbd36f9627aa224885a85ad53331f5b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.7043421
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbd36f9627aa224885a85ad53331f5b, type: 3}

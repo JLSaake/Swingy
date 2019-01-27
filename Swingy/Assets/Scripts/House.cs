@@ -43,6 +43,7 @@ public class House : MonoBehaviour
 
         if (score >= Procedural.GetMaxRopes())
         {
+            fireworks.gameObject.SetActive(true);
             var main = chimney.main;
             main.startColor = new Color(choices[2].r, choices[2].g, choices[2].b, 1.0f);
         }

@@ -4929,7 +4929,7 @@ Transform:
   m_GameObject: {fileID: 1274596408103282078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.73, y: -4.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7043421, y: 1.7043421, z: 1.7043421}
   m_Children:
   - {fileID: 3541137577493900252}
   - {fileID: 2293840348337715894}
@@ -5029,7 +5029,7 @@ MonoBehaviour:
   backWindowRenderer: {fileID: 5609688759031789619}
   frontWindowRenderer: {fileID: 6772534719521116921}
   chimney: {fileID: 8161807754560101858}
-  fireworks: {fileID: 0}
+  fireworks: {fileID: 1849919552536116344}
 --- !u!1 &3974112808973389830
 GameObject:
   m_ObjectHideFlags: 0
@@ -5288,6 +5288,12 @@ PrefabInstance:
 --- !u!4 &1849919552536116345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 584476906944501233, guid: ee517e922d51e384789dc43f7b49e8c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1274596409532639624}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1849919552536116344 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 584476906944501232, guid: ee517e922d51e384789dc43f7b49e8c9,
     type: 3}
   m_PrefabInstance: {fileID: 1274596409532639624}
   m_PrefabAsset: {fileID: 0}
