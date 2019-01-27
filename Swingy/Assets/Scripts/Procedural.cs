@@ -12,7 +12,6 @@ public enum HeightIncrement
 public class Procedural : MonoBehaviour
 {
 
-    // gIVE mE rOPE
     public GameObject rope;
     // [Range(0.5f, 2.0f)]
     public float ropeLengthLow;
@@ -35,10 +34,9 @@ public class Procedural : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
-        configureParams(16, new Vector2(0,0), HeightIncrement.Decrease);
         rand = new System.Random();
-        for(int i=0; i<40; ++i) Instantiate(rope, nextRope(), Quaternion.identity);
+        generateLevel(20, 16, new Vector2(0, 2.81f), HeightIncrement.Decrease);
+        
         // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
 
@@ -48,7 +46,7 @@ public class Procedural : MonoBehaviour
         
     }
 
-    void configureParams(int maxHeight, Vector2 startPos, HeightIncrement heightIncrement)
+    void generateLevel(int numRopes, int maxHeight, Vector2 startPos, HeightIncrement heightIncrement)
     {
         this.maxHeight = maxHeight;
         this.heightIncrement = heightIncrement;
@@ -57,7 +55,10 @@ public class Procedural : MonoBehaviour
 
         // Reset internal level state
         height = 0;
-        climbChance = 0.30f;
+        climbChance = 0.55f;
+
+        // Generate level
+        for(int i=0; i<numRopes; ++i) Instantiate(rope, nextRope(), Quaternion.identity);
     }
 
     Vector2 nextRope()
@@ -70,17 +71,17 @@ public class Procedural : MonoBehaviour
             if(climb)
             {
                 ++height;
-                climbChance = 0.05f;
+                climbChance = 0.04f + 0.88f * Mathf.Pow((maxHeight - height) / (float)maxHeight, 1.7f);
             }
             else
             {
                 switch(heightIncrement)
                 {
                     case HeightIncrement.Linear:
-                        climbChance += 0.30f;
+                        climbChance += 0.38f;
                         break;
                     case HeightIncrement.Decrease:
-                        climbChance += 0.45f * (maxHeight - height) / maxHeight;
+                        climbChance += 0.45f * Mathf.Pow(0.89f * (maxHeight - height) / (float)maxHeight, 1.5f);
                         break;
                     // default:
                     //     Debug.Log("");
@@ -88,8 +89,8 @@ public class Procedural : MonoBehaviour
                 
             }
         }
-        // Debug.Log("hi" + climbChance);
-        return new Vector2(xPos, (float)height);
+        Debug.Log(height + " " + climbChance);
+        return new Vector2(xPos, 1.5f * ((float)height) + lastY);
     }
 
 }
