@@ -59,12 +59,14 @@ public class Player : MonoBehaviour{
             }
         }
         else {
-            gameObject.transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * Mathf.Atan(rb.velocity.x / rb.velocity.y));
             cam.Move(this.transform.position);
 
             if (lastRopeY - transform.position.y > maxYBeforeDeath)
             {
                 initDeath(transform.position, GetComponent<Rigidbody2D>());
+            } else
+            {
+                gameObject.transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * Mathf.Atan(rb.velocity.x / rb.velocity.y));
             }
         }
 
@@ -196,5 +198,6 @@ public class Player : MonoBehaviour{
 
         Instantiate(housePrefab, new Vector3(newX, newY, -1.17f), Quaternion.identity);
         hasDied = true;
+        rb.freezeRotation = true;
     }
 }

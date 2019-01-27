@@ -163,9 +163,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 1
   hingePoint: {x: 0, y: 0}
-  forceModifier: 1
+  forceModifier: 3
   maxAngle: 180
   minAngle: 180
+  id: 0
 --- !u!50 &701787207075035733
 Rigidbody2D:
   serializedVersion: 4

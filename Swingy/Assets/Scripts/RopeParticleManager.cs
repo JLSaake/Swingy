@@ -29,14 +29,8 @@ public class RopeParticleManager : MonoBehaviour
         if (needsChoices)
         {
             colorChoices = GameManager.GetColorChoices();
-            // Temp
-            colorChoices.Add(Color.green);
-            colorChoices.Add(Color.blue);
-            colorChoices.Add(Color.grey);
             needsChoices = false;
         }
-        float newSize = 0;
-        //++currRope;
         ++currRope;
         if (currRope > maxRope)
         {
