@@ -6,6 +6,8 @@ public class Player : MonoBehaviour{
     public Rope rope;
     public float launchCoefficient = 3;
     public float mass = 0.8f;
+    public ParticleSystem ropeCollision;
+
     private Rigidbody2D rb;
     private Camera cam;
     private Vector2 cameraOffset;
@@ -48,8 +50,9 @@ public class Player : MonoBehaviour{
     }
 
     void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Rope")){
+        if (collision.gameObject.CompareTag("Rope")) {
             grabRope(collision.gameObject);
+            SpawnParticles(collision.GetContact(0).point);
         }
     }
 
@@ -137,5 +140,12 @@ public class Player : MonoBehaviour{
         cam.SetOffset(cameraOffset);
         StartCoroutine(cam.MoveToRope(this.transform.parent.gameObject.transform.parent.transform.position));
 
+    }
+
+    private void SpawnParticles(Vector2 pos)
+    {
+        ParticleSystem particle = Instantiate(ropeCollision, pos, Quaternion.identity);
+        particle.Play();
+        Destroy(particle.gameObject, particle.main.duration + 1);
     }
 }
