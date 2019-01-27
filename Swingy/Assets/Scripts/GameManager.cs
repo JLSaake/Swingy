@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
             //Application.LoadLevel(Application.loadedLevel);
             SceneManager.LoadScene(Application.loadedLevel);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public static int AddColor(Color c) 
