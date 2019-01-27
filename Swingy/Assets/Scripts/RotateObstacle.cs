@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RotateObstacle : MonoBehaviour
 {
-
     public float torque = 1.5f;
     Rigidbody2D rb;
 
