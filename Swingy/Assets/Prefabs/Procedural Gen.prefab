@@ -95,6 +95,8 @@ MonoBehaviour:
   rope: {fileID: 701787206953858234, guid: a6b519186c3476b40bfe9fa85c539716, type: 3}
   rotatingObstacle: {fileID: 3124243772255496494, guid: 9945b7ddf9c1a9f47aa9937acd68b646,
     type: 3}
+  blocker: {fileID: 9080676157247172005, guid: fd9ae8190b7e10045b5f7c8d3392f679, type: 3}
+  spike: {fileID: 7316929310255803160, guid: 89625b62a3fccaa4b8d0a7ec070ede1d, type: 3}
   ropeLengthLow: 2
   ropeLengthHigh: 0
   averageRopeSpacing: 12

@@ -651,7 +651,7 @@ PrefabInstance:
     - target: {fileID: 2874743045221692629, guid: 7a32a081ab637d544b62c44d207144ec,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.89
+      value: 7.28
       objectReference: {fileID: 0}
     - target: {fileID: 2874743045221692629, guid: 7a32a081ab637d544b62c44d207144ec,
         type: 3}
@@ -771,6 +771,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
+        type: 3}
+      propertyPath: averageRopeSpacing
+      value: 12.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a529621ddf9f33d43b0576572bb37567, type: 3}

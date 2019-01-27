@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatingObstacleHinge : MonoBehaviour
+public class RotatingObstacleHinge : Obstacle
 {
     HingeJoint2D hinge;
 
