@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour{
     public Rope rope;
     public float launchCoefficient = 3;
+    public float mass = 0.8f;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -48,19 +49,58 @@ public class Player : MonoBehaviour{
         gameObject.AddComponent<Rigidbody2D>();
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
+        rb.mass = mass;
         transform.parent = null;
         rope = null;
     }
 
-    IEnumerator centerX(){
-        Vector3 start = gameObject.transform.localPosition;
-        // Vector3 destination = new Vector3(0, gameObject.transform.localPosition.y, 0);
-        Vector3 destination = new Vector3(0, -2, 0);
+    // IEnumerator center(){
+    //     Vector3 startPosition = gameObject.transform.localPosition;
+    //     Vector3 startRotation = gameObject.transform.localEulerAngles;
+    //     // Vector3 destination = new Vector3(0, gameObject.transform.localPosition.y, 0);
+    //     // Vector3 destination = new Vector3(0, -2, 0);
+    //     float elapsedTime = 0f;
+    //     float time = 0.5f;
+
+    //     while(elapsedTime < time){
+    //         transform.localPosition = Vector3.Lerp(startPosition, new Vector3(0, -2, 0), elapsedTime / time);
+    //         transform.localEulerAngles = Vector3.Lerp(startRotation, new Vector3(0, 0, 0), elapsedTime / time);
+    //         elapsedTime += Time.deltaTime;
+    //         yield return null;
+    //     }
+    // }
+
+    // IEnumerator center(){
+    //     Vector3 startPosition = gameObject.transform.localPosition;
+    //     float elapsedTime = 0f;
+    //     float time = 0.5f;
+
+    //     while(elapsedTime < time){
+    //         transform.localPosition = Vector3.Lerp(startPosition, new Vector3(0, -2, 0), elapsedTime / time);
+    //         elapsedTime += Time.deltaTime;
+    //         yield return null;
+    //     }
+    // }
+
+    IEnumerator center(){
+        Vector3 startPosition = gameObject.transform.localPosition;
         float elapsedTime = 0f;
         float time = 0.5f;
 
         while(elapsedTime < time){
-            transform.localPosition = Vector3.Lerp(start, destination, elapsedTime / time);
+            transform.localPosition = Vector3.Lerp(startPosition, new Vector3(0f, -2f, 0f), elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator spin(){
+        Vector3 startRotation = gameObject.transform.localEulerAngles;
+        float elapsedTime = 0f;
+        float time = 1f;
+
+        while(elapsedTime < time){
+            transform.localEulerAngles = Vector3.Lerp(startRotation, new Vector3(0f, 0f, 0f), elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -74,6 +114,7 @@ public class Player : MonoBehaviour{
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         rb = null;
 
-        StartCoroutine(centerX());
+        StartCoroutine(center());
+        StartCoroutine(spin());
     }
 }
