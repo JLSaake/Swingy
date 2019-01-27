@@ -8,15 +8,18 @@ public class Player : MonoBehaviour{
     public float mass = 0.8f;
     public float maxYBeforeDeath = 15.0f;
     public ParticleSystem ropeCollision;
+    public float audioVariance = 1.5f;
     public GameObject housePrefab;
     public bool pickingColors = false;
 
     private Rigidbody2D rb;
     private Camera cam;
+    private AudioSource audioSource;
     private Vector2 cameraOffset;
     private bool camPostMove;
     private float lastRopeY; // Used to determine if the player should die
     private bool hasDied;
+    private RopeParticleManager particleManager;
     
     private int ropesCaught; // High scores!
 
@@ -24,9 +27,10 @@ public class Player : MonoBehaviour{
     void Start(){
         rope = gameObject.GetComponentInParent<Rope>();
         cam = FindObjectOfType<Camera>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         cameraOffset = cam.transform.position - this.transform.parent.gameObject.transform.parent.transform.position;
         cam.SetOffset(cameraOffset);
-        
+        particleManager = FindObjectOfType<RopeParticleManager>();
     }
 
     // Update is called once per frame
@@ -48,6 +52,8 @@ public class Player : MonoBehaviour{
             //Jumping
             if(Input.GetButtonDown("Jump")){
                 launch();
+                audioSource.pitch = Random.Range(1 / audioVariance, 1f);
+                gameObject.GetComponent<AudioSource>().Play();
             }
         }
         else {
@@ -65,7 +71,9 @@ public class Player : MonoBehaviour{
     void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.CompareTag("Rope")) {
             grabRope(collision.gameObject);
-            SpawnParticles(collision.GetContact(0).point);
+            audioSource.pitch = Random.Range(1f, 1 * audioVariance);
+            gameObject.GetComponent<AudioSource>().Play();
+            particleManager.spawnRopeParticle(collision.GetContact(0).point);
         }
     }
 
@@ -91,6 +99,7 @@ public class Player : MonoBehaviour{
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
         rb.mass = mass;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         cam.SetOffset(cam.transform.position - this.transform.position);
 
@@ -170,12 +179,6 @@ public class Player : MonoBehaviour{
         ropesCaught++;
     }
 
-    private void SpawnParticles(Vector2 pos)
-    {
-        ParticleSystem particle = Instantiate(ropeCollision, pos, Quaternion.identity);
-        particle.Play();
-        Destroy(particle.gameObject, particle.main.duration + 1);
-    }
 
     private void initDeath(Vector3 position, Rigidbody2D playerRB)
     {
