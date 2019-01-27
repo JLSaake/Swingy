@@ -47,7 +47,9 @@ public class Procedural : MonoBehaviour
     int height;
     float climbChance;
     float maxClimbChance;
+    float backtrackChance;
     System.Random rand;
+    bool jumpBack;
 
     // Start is called before the first frame update
     void Start()
@@ -56,10 +58,10 @@ public class Procedural : MonoBehaviour
         rand = new System.Random();
 
         // Level 1 config
-        // generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f);
+        // generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f, 0.0f);
 
         // Level 2 config
-        generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Medium, 0.9f);
+        generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Medium, 0.8f, 0.27f);
         
         // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
@@ -71,7 +73,8 @@ public class Procedural : MonoBehaviour
     }
 
     // Obstacle spawn rate- a float between 0 and 1 representing obstacle spawn chance after each rope.
-    void generateLevel(int numRopes, int maxHeight, Vector2 startPos, HeightIncrementType heightIncrement, HeightGain heightGain, float obstacleSpawnChance)
+    void generateLevel(int numRopes, int maxHeight, Vector2 startPos, HeightIncrementType heightIncrement, HeightGain heightGain, float obstacleSpawnChance,
+        float backtrackChance)
     {
         this.maxHeight = maxHeight;
         this.heightIncrement = heightIncrement;
@@ -80,6 +83,7 @@ public class Procedural : MonoBehaviour
         this.lastY = startPos.y;
         this.startY = startPos.y;
         this.obsSpawn = obstacleSpawnChance;
+        this.backtrackChance = backtrackChance;
 
         // Reset internal level state
         height = 0;
@@ -88,6 +92,7 @@ public class Procedural : MonoBehaviour
         // Generate level
         for(int i=0; i<numRopes; ++i)
         {
+            jumpBack = i<numRopes-2 && (float)rand.NextDouble() < backtrackChance;
             nextRope();
         }
     }
@@ -96,14 +101,15 @@ public class Procedural : MonoBehaviour
     {
         float spacingChange = (float)(rand.NextDouble() + rand.NextDouble())*ropeSpacingVariation + 1f - ropeSpacingVariation;
         // Debug.Log(spacingChange);
-        float xPos = lastX + averageRopeSpacing * spacingChange;
+        float xPos = lastX + ((jumpBack) ? -0.77f : 1f) * averageRopeSpacing * spacingChange;
         float yPos = lastY - 0.3f + (float)rand.NextDouble() * 0.8f;
+        if(jumpBack)   yPos = lastY + 4.8f - 1.1f * spacingChange;
         
         bool climb = false;
 
         if(height < maxHeight)
         {
-            climb = rand.NextDouble() < climbChance;
+            climb = jumpBack || rand.NextDouble() < climbChance;
             if(climb)
             {
                 switch(heightGain)
@@ -145,7 +151,7 @@ public class Procedural : MonoBehaviour
             // Create an obstacle
             double obsChoice = rand.NextDouble();
 
-            if(obsChoice < 0.2) // Spinny bois
+            if(!jumpBack && obsChoice < 0.2) // Spinny bois
             {
                 float obstPos;
                 if(climb)   obstPos = -4.95f - (float)rand.NextDouble() * 0.9f;
@@ -160,7 +166,7 @@ public class Procedural : MonoBehaviour
                 tempScript.SetTorque(10f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0.05f);
             }
-            else if(obsChoice < 0.62 && (xPos - lastX) > 9.8f)  // Blockers
+            else if(obsChoice < 0.63)  // Blockers
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
@@ -184,16 +190,17 @@ public class Procedural : MonoBehaviour
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
-                float obstacleY = Mathf.Min(0.3f*lastY + 0.7f*yPos, lastY + 1f) - 6.2f + (float)rand.NextDouble() * 1.9f;
+                float obstacleY = Mathf.Min(0.3f*lastY + 0.7f*yPos, lastY + 0.9f) - 6.2f + (float)rand.NextDouble() * 1.9f;
                 
                 GameObject tempSpike = Instantiate(spike, new Vector2(obstacleX, obstacleY), Quaternion.identity);
-                if(dx < 0.48 && rand.NextDouble() < 0.5) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
+                // if(dx < 0.48 && rand.NextDouble() < 0.5) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
             }
 
         }
 
         lastX = xPos;
         lastY = yPos;
+        jumpBack = false;
         // tempRope.transform.GetChild(0).gameObject.GetComponent<Rope>().SetLength(spacingChange + 1.1f);
         // Debug.Log(height + " " + climbChance);
         // return new Vector2(xPos, 1.5f * ((float)height) + lastY);
