@@ -1375,6 +1375,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5566111521970319018, guid: 190d488ffe7cb2f468c45b40fc258776,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 190d488ffe7cb2f468c45b40fc258776, type: 3}
 --- !u!1001 &6958803499294565579

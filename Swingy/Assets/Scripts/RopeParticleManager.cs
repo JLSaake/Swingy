@@ -42,14 +42,26 @@ public class RopeParticleManager : MonoBehaviour
         {
             currRope = maxRope;
         }
-        float ratio = 3*(float)currRope / (float)maxRope;
+        float ratio = (float)currRope / (float)maxRope;
 
         ParticleSystem particle = Instantiate(impact, pos, Quaternion.identity);
 
         // 3 will be the max number of colors chosen by the player
         int rand = Random.Range(0, 3);
         Color chosenColor = colorChoices[rand];
-        particle.startColor = new Color(chosenColor.r * ratio, chosenColor.g * ratio, chosenColor.b * ratio, 190);
+        if (ratio >=0 && ratio < 0.3f)
+        {
+            chosenColor.a = 0.3f;
+        } else 
+        if (ratio >= 0.3f && ratio < 0.6f)
+        {
+            chosenColor.a = 0.6f;
+        } else
+        if (ratio >= 0.6f)
+        {
+            chosenColor.a = 0.8f;
+        }
+        particle.startColor = chosenColor;
 
 
         particle.Play();
