@@ -7,7 +7,7 @@ public class RotatingObstacleHinge : MonoBehaviour
     HingeJoint2D hinge;
 
     [Range(0.0f, 0.95f)]
-    public float hingePosition;
+    public float hingePosition = 0f;
 
     float torque;
 
@@ -28,11 +28,20 @@ public class RotatingObstacleHinge : MonoBehaviour
         gameObject.transform.GetChild(0).localScale = new Vector2(1f, newLength);
     }
 
+    public float GetLength()
+    {
+        return gameObject.transform.GetChild(0).localScale.y;
+    }
+
     public void SetTorque(float newTorque)
     {
-        //Debug.Log(newTorque + " fn called");
         torque = newTorque;
-        gameObject.transform.GetChild(0).gameObject.GetComponent<RotateObstacle>().torque = this.torque; // * Mathf.Pow(hingePosition + 1.0f, 2.0f);
+        gameObject.transform.GetChild(0).gameObject.GetComponent<RotateObstacle>().torque = this.torque * Mathf.Pow(hingePosition + 1.0f, 2.0f);
+    }
+
+    public float GetTorque()
+    {
+        return gameObject.transform.GetChild(0).gameObject.GetComponent<RotateObstacle>().torque;
     }
 
     public void SetHingePoint(float newHingePoint)
