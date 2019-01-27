@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 701787207075035730}
   - component: {fileID: 701787207075035733}
   - component: {fileID: 701787207075035732}
-  - component: {fileID: 3613592214997299998}
+  - component: {fileID: 6577901482473566932}
   m_Layer: 8
   m_Name: Rope
   m_TagString: Rope
@@ -211,8 +211,8 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!61 &3613592214997299998
-BoxCollider2D:
+--- !u!60 &6577901482473566932
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -224,7 +224,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04611945, y: 0.2536561}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -234,6 +234,13 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7862756, y: 4.847019}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.223505, y: -1.8059788}
+      - {x: 1.2303724, y: -2.1756516}
+      - {x: -1.1155167, y: -2.1764374}
+      - {x: -1.1073112, y: -1.8146758}
+      - {x: -0.8371458, y: -1.797823}
+      - {x: -0.11305046, y: 2.1636164}
+      - {x: 0.106134415, y: 2.163238}
+      - {x: 0.9027872, y: -1.8090587}
