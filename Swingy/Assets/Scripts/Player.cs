@@ -7,9 +7,11 @@ public class Player : MonoBehaviour{
     public float launchCoefficient = 3;
     public float mass = 0.8f;
     public ParticleSystem ropeCollision;
+    public float audioVariance = 1.5f;
 
     private Rigidbody2D rb;
     private Camera cam;
+    private AudioSource audioSource;
     private Vector2 cameraOffset;
     private bool camPostMove;
 
@@ -17,9 +19,9 @@ public class Player : MonoBehaviour{
     void Start(){
         rope = gameObject.GetComponentInParent<Rope>();
         cam = FindObjectOfType<Camera>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         cameraOffset = cam.transform.position - this.transform.parent.gameObject.transform.parent.transform.position;
         cam.SetOffset(cameraOffset);
-        
     }
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class Player : MonoBehaviour{
             //Jumping
             if(Input.GetButtonDown("Jump")){
                 launch();
+                audioSource.pitch = Random.Range(1 / audioVariance, 1f);
+                gameObject.GetComponent<AudioSource>().Play();
             }
         }
         else{
@@ -52,6 +56,8 @@ public class Player : MonoBehaviour{
     void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.CompareTag("Rope")) {
             grabRope(collision.gameObject);
+            audioSource.pitch = Random.Range(1f, 1 * audioVariance);
+            gameObject.GetComponent<AudioSource>().Play();
             SpawnParticles(collision.GetContact(0).point);
         }
     }
