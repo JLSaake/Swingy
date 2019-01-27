@@ -30,7 +30,7 @@ public class RotatingObstacleHinge : MonoBehaviour
 
     public void SetTorque(float newTorque)
     {
-        Debug.Log(newTorque + " fn called");
+        //Debug.Log(newTorque + " fn called");
         torque = newTorque;
         gameObject.transform.GetChild(0).gameObject.GetComponent<RotateObstacle>().torque = this.torque; // * Mathf.Pow(hingePosition + 1.0f, 2.0f);
     }
