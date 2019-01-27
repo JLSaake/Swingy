@@ -12,7 +12,8 @@ public enum HeightIncrementType
 public enum HeightGain
 {
     Trivial,
-    Slight
+    Slight,
+    Medium
 }
 
 public class Procedural : MonoBehaviour
@@ -55,10 +56,10 @@ public class Procedural : MonoBehaviour
         rand = new System.Random();
 
         // Level 1 config
-        generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f);
+        // generateLevel(level1Ropes, 16, new Vector2(0, 2.81f), HeightIncrementType.Decrease, HeightGain.Trivial, 0f);
 
         // Level 2 config
-        // generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Slight, 0.64f);
+        generateLevel(level2Ropes, 32, new Vector2(0, 2.81f), HeightIncrementType.Linear, HeightGain.Medium, 0.9f);
         
         // for(int t=0; t<50; ++t) Instantiate(rope, ArcCalculator.maxPosAtTime(t/5), Quaternion.identity);
     }
@@ -108,10 +109,13 @@ public class Procedural : MonoBehaviour
                 switch(heightGain)
                 {
                     case HeightGain.Trivial:
-                        yPos += 1.3f + (float)rand.NextDouble() * 0.4f;
+                        yPos += 1.2f + (float)rand.NextDouble() * 0.4f;
                         break;
                     case HeightGain.Slight:
                         yPos += 1.6f + (float)rand.NextDouble() * 0.8f;
+                        break;
+                    case HeightGain.Medium:
+                        yPos += 1.0f + (float)rand.NextDouble() * 1.5f + (float)rand.NextDouble() * 1.5f + (float) rand.NextDouble() * 1.1f;
                         break;
                 }
                 climbChance = 0.04f + 0.88f * Mathf.Pow((maxHeight - height) / (float)maxHeight, 1.7f);
@@ -141,7 +145,7 @@ public class Procedural : MonoBehaviour
             // Create an obstacle
             double obsChoice = rand.NextDouble();
 
-            if(obsChoice < 0.2)
+            if(obsChoice < 0.2) // Spinny bois
             {
                 float obstPos;
                 if(climb)   obstPos = -4.95f - (float)rand.NextDouble() * 0.9f;
@@ -156,7 +160,7 @@ public class Procedural : MonoBehaviour
                 tempScript.SetTorque(10f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0.05f);
             }
-            else if(obsChoice < 0.62 && (xPos - lastX) > 9.8f)
+            else if(obsChoice < 0.62 && (xPos - lastX) > 9.8f)  // Blockers
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
@@ -174,16 +178,16 @@ public class Procedural : MonoBehaviour
                 }
                 
                 GameObject tempBlockObstacle = Instantiate(blocker, new Vector2(obstacleX, obstacleY), Quaternion.identity);
-                tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 1.6f);
+                tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 1.9f);
             }
-            else
+            else    // Spikes
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.4f;   // Between 0.4 and 0.6
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
-                float obstacleY = (lastY + yPos) / 2f - 6.2f + (float)rand.NextDouble() * 1.5f;
+                float obstacleY = Mathf.Min(0.3f*lastY + 0.7f*yPos, lastY + 1f) - 6.2f + (float)rand.NextDouble() * 1.9f;
                 
                 GameObject tempSpike = Instantiate(spike, new Vector2(obstacleX, obstacleY), Quaternion.identity);
-                if(dx < 0.47 && rand.NextDouble() < 0.4) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
+                if(dx < 0.48 && rand.NextDouble() < 0.5) Instantiate(spike, new Vector2(obstacleX + 1.3f, obstacleY), Quaternion.identity);
             }
 
         }
