@@ -6,9 +6,6 @@ public class House : MonoBehaviour
 {
 
     [SerializeField]
-    private List<int> thresholds = new List<int>();
-
-    [SerializeField]
     private MeshRenderer backWindowRenderer;
 
     [SerializeField]
@@ -16,6 +13,9 @@ public class House : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem chimney;
+
+    [SerializeField]
+    private ParticleSystem fireworks;
 
     void Start()
     {
@@ -31,17 +31,17 @@ public class House : MonoBehaviour
     public void init(int score)
     {
         List<Color> choices = GameManager.GetColorChoices();
-        if (score > thresholds[0])
+        if (score >= Procedural.GetLevel1Ropes())
         {
             backWindowRenderer.material.SetColor("_FlowColor", choices[0]);
         }
         
-        if (score > thresholds[1])
+        if (score >= Procedural.GetLevel1Ropes() + Procedural.GetLevel2Ropes())
         {
             frontWindowRenderer.material.SetColor("_FlowColor", choices[1]);
         }
 
-        if (score > thresholds[2])
+        if (score >= Procedural.GetMaxRopes())
         {
             var main = chimney.main;
             main.startColor = new Color(choices[2].r, choices[2].g, choices[2].b, 1.0f);
