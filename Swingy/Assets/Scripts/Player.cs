@@ -18,6 +18,7 @@ public class Player : MonoBehaviour{
     private bool camPostMove;
     private float lastRopeY; // Used to determine if the player should die
     private bool hasDied;
+    private RopeParticleManager particleManager;
     
     private int ropesCaught; // High scores!
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour{
         audioSource = gameObject.GetComponent<AudioSource>();
         cameraOffset = cam.transform.position - this.transform.parent.gameObject.transform.parent.transform.position;
         cam.SetOffset(cameraOffset);
+        particleManager = FindObjectOfType<RopeParticleManager>();
     }
 
     // Update is called once per frame
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour{
             grabRope(collision.gameObject);
             audioSource.pitch = Random.Range(1f, 1 * audioVariance);
             gameObject.GetComponent<AudioSource>().Play();
-            SpawnParticles(collision.GetContact(0).point);
+            particleManager.spawnRopeParticle(collision.GetContact(0).point);
         }
     }
 
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour{
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
         rb.mass = mass;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         cam.SetOffset(cam.transform.position - this.transform.position);
 
@@ -174,12 +177,6 @@ public class Player : MonoBehaviour{
         ropesCaught++;
     }
 
-    private void SpawnParticles(Vector2 pos)
-    {
-        ParticleSystem particle = Instantiate(ropeCollision, pos, Quaternion.identity);
-        particle.Play();
-        Destroy(particle.gameObject, particle.main.duration + 1);
-    }
 
     private void initDeath(Vector3 position, Rigidbody2D playerRB)
     {

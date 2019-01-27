@@ -40,7 +40,7 @@ public class Procedural : MonoBehaviour
     public int level1Ropes = 15;
     public int level2Ropes = 16;
     public int level3Ropes = 17;
-    public int maxRopes;
+    private static int maxRopes;
 
     // Internal state management per level
     int height;
@@ -195,7 +195,7 @@ public class Procedural : MonoBehaviour
         // return new Vector2(xPos, 1.5f * ((float)height) + lastY);
     }
 
-    public int GetMaxRopes()
+    public static int GetMaxRopes()
     {
         return maxRopes;
     }

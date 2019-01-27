@@ -6,59 +6,53 @@ public class RopeParticleManager : MonoBehaviour
 {
 
     public ParticleSystem impact;
-    private float targetSize;
     private int maxRope;
     private int currRope;
-    private List<Color> colorChoices = new List<Color>();
+    private List<Color> colorChoices;
+    private bool needsChoices = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxRope = Procedural.GetMaxRopes();
+        currRope = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void spawnParticle(Vector2 pos)
+    public void spawnRopeParticle(Vector2 pos)
     {
-        float ratio = (float)currRope / (float)maxRope;
+        if (needsChoices)
+        {
+            colorChoices = GameManager.GetColorChoices();
+            // Temp
+            colorChoices.Add(Color.green);
+            colorChoices.Add(Color.blue);
+            colorChoices.Add(Color.grey);
+            needsChoices = false;
+        }
         float newSize = 0;
+        //++currRope;
         ++currRope;
         if (currRope > maxRope)
         {
             currRope = maxRope;
         }
+        float ratio = 3*(float)currRope / (float)maxRope;
+
         ParticleSystem particle = Instantiate(impact, pos, Quaternion.identity);
-        var main = particle.main;
 
         // 3 will be the max number of colors chosen by the player
-        main.startColor = (colorChoices[Random.Range(0, 3)] * ratio);
-
-        if (ratio >= 0f && ratio < 0.30f)
-        {
-            newSize = targetSize * 0.33f;
-        } else
-        if (ratio >= 0.30f && ratio < 0.6f) {
-            newSize = targetSize * 0.66f;
-        } else
-        if (ratio >= 0.6f)
-        {
-            newSize = targetSize;
-        }
-
-        main.startSize = newSize;
+        int rand = Random.Range(0, 3);
+        Color chosenColor = colorChoices[rand];
+        particle.startColor = new Color(chosenColor.r * ratio, chosenColor.g * ratio, chosenColor.b * ratio, 190);
 
 
         particle.Play();
         Destroy(particle.gameObject, particle.main.duration + 1);
-    }
-
-    public void SetMaxRopes(int r)
-    {
-        maxRope = r;
     }
 }
