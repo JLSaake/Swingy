@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9080676157247172006}
   - component: {fileID: 9080676157247172007}
   - component: {fileID: 8863529714535854694}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Blocker Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 9080676159197550568}
   - component: {fileID: 9080676159197550569}
   - component: {fileID: 3201769226039636436}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Blocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
