@@ -145,7 +145,7 @@ public class Player : MonoBehaviour{
         float time = 0.5f;
 
         while(elapsedTime < time){
-            transform.localPosition = Vector3.Lerp(startPosition, new Vector3(0f, -2f, 0f), elapsedTime / time);
+            transform.localPosition = Vector3.Lerp(startPosition, new Vector3(0f, -1.34f, 0f), elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
