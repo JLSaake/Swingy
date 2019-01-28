@@ -106,6 +106,7 @@ public class Player : MonoBehaviour{
         rb = gameObject.GetComponent<Rigidbody2D>(); 
         rb.velocity = launchCoefficient * rope.GetVelocity();
         rb.mass = mass;
+        rb.gravityScale = -1;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         cam.SetOffset(cam.transform.position - this.transform.position);
