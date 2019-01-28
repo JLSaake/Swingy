@@ -186,7 +186,7 @@ public class Player : MonoBehaviour{
         lastRopeY = 0.0f;
         Rope r = grabbedRope.GetComponent<Rope>();
         Rigidbody2D ropeRB = r.GetComponent<Rigidbody2D>();
-        ropeRB.velocity = new Vector2(ropeRB.velocity.x + xVelocity * 0.54f, ropeRB.velocity.y);
+        ropeRB.velocity = new Vector2(ropeRB.velocity.x + xVelocity * 0.56f, ropeRB.velocity.y);
         furthestRope = r.id > furthestRope ? r.id : furthestRope;
     }
 

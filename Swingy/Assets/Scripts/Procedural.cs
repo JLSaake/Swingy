@@ -42,7 +42,7 @@ public class Procedural : MonoBehaviour
 
     Vector2 nextStartPos;
 
-    public static int level1Ropes = 50;
+    public static int level1Ropes = 70;
     public static int level2Ropes = 10;
     public static int level3Ropes = 10;
     private static int maxRopes;
@@ -65,9 +65,9 @@ public class Procedural : MonoBehaviour
 
         buildLevel(1);
 
-        for(int i=1; i<10; ++i)
+        for(int i=1; i<11; ++i)
         {
-            nextStartPos = new Vector2(nextStartPos.x + 4.5f, nextStartPos.y + 9f);
+            nextStartPos = new Vector2(nextStartPos.x + 4.5f, nextStartPos.y + 11f);
             buildLevel(1);
         }
         //buildLevel(2);
@@ -85,7 +85,7 @@ public class Procedural : MonoBehaviour
         switch(levelNum)
         {
             case 1:
-                generateLevel(level1Ropes, 16, nextStartPos, HeightIncrementType.Decrease, HeightGain.Slight, 0.81f, 0.0f, false);
+                generateLevel(level1Ropes, 16, nextStartPos, HeightIncrementType.Decrease, HeightGain.Slight, 0.82f, 0.0f, false);
                 break;
             case 2:
                 generateLevel(level2Ropes, 32, nextStartPos, HeightIncrementType.Linear, HeightGain.Medium, 0.44f, 0.19f, true);
@@ -237,7 +237,7 @@ public class Procedural : MonoBehaviour
                 
                 GameObject tempBlockObstacle = Instantiate(blocker, new Vector2(obstacleX, obstacleY-1.0f), Quaternion.Euler(0f, 0f, 90f));
                 tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 2.6f);
-                tempBlockObstacle.transform.localScale = new Vector2(0.05f, (float)rand.NextDouble() * 6.0f + 2.0f);
+                tempBlockObstacle.transform.localScale = new Vector2(0.05f, (float)rand.NextDouble() * 12f + 3.5f);
             }
             else    // Spikes
             {
