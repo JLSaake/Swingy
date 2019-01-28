@@ -24,7 +24,7 @@ public class RopeParticleManager : MonoBehaviour
 
     }
 
-    public void spawnRopeParticle(Vector2 pos)
+    public void spawnRopeParticle(Vector2 pos, float x)
     {
         if (needsChoices)
         {
@@ -39,6 +39,10 @@ public class RopeParticleManager : MonoBehaviour
         float ratio = (float)currRope / (float)maxRope;
 
         ParticleSystem particle = Instantiate(impact, pos, Quaternion.identity);
+        if (x < 0)
+        {
+            particle.gameObject.transform.localEulerAngles = new Vector3(0, -180, 0);
+        }
 
         // 3 will be the max number of colors chosen by the player
         int rand = Random.Range(0, 3);

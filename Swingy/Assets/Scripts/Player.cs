@@ -74,10 +74,10 @@ public class Player : MonoBehaviour{
 
     void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.CompareTag("Rope")) {
+            particleManager.spawnRopeParticle(collision.GetContact(0).point, rb.velocity.x);
             grabRope(collision.gameObject);
             audioSource.pitch = Random.Range(1f, 1 * audioVariance);
             audioSource.Play();
-            particleManager.spawnRopeParticle(collision.GetContact(0).point);
         }
     }
 
