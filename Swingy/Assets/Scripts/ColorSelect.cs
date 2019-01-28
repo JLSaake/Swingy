@@ -38,7 +38,7 @@ public class ColorSelect : MonoBehaviour
 
     private List<string> prompts = new List<string>()
     {
-        "safety?", "familiar?", "family?", "lol"
+        "safety?", "familiar?", "family?", ""
     };
 
     void Start()
@@ -98,6 +98,7 @@ public class ColorSelect : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && promptStage < 3) 
         {
+            Debug.Log(promptStage);
             // Play the animation for selecting the color
             flowAnims[selectIndex].Play("Pick");
 
@@ -110,6 +111,7 @@ public class ColorSelect : MonoBehaviour
             if (GameManager.AddColor(cb ? colorBlindPanelColors[selectIndex] : panelColors[selectIndex]) == 3)
             {
                 // fade this out, move on
+                promptStage++;
                 initEnd();
             }
             else
