@@ -42,7 +42,7 @@ public class Procedural : MonoBehaviour
 
     Vector2 nextStartPos;
 
-    public static int level1Ropes = 2500;
+    public static int level1Ropes = 50;
     public static int level2Ropes = 10;
     public static int level3Ropes = 10;
     private static int maxRopes;
@@ -61,10 +61,17 @@ public class Procedural : MonoBehaviour
     {
         maxRopes = level1Ropes + level2Ropes + level3Ropes;
         rand = new System.Random();
-        
+        nextStartPos = firstRope.transform.position;
+
         buildLevel(1);
-        buildLevel(2);
-        buildLevel(3);
+
+        for(int i=1; i<10; ++i)
+        {
+            nextStartPos = new Vector2(nextStartPos.x + 4.5f, nextStartPos.y + 9f);
+            buildLevel(1);
+        }
+        //buildLevel(2);
+        //buildLevel(3);
     }
 
     // Update is called once per frame
@@ -78,7 +85,7 @@ public class Procedural : MonoBehaviour
         switch(levelNum)
         {
             case 1:
-                generateLevel(level1Ropes, 16, firstRope.transform.position, HeightIncrementType.Decrease, HeightGain.Slight, 0f, 0.0f, true);
+                generateLevel(level1Ropes, 16, nextStartPos, HeightIncrementType.Decrease, HeightGain.Slight, 0.81f, 0.0f, false);
                 break;
             case 2:
                 generateLevel(level2Ropes, 32, nextStartPos, HeightIncrementType.Linear, HeightGain.Medium, 0.44f, 0.19f, true);
@@ -195,7 +202,7 @@ public class Procedural : MonoBehaviour
             // Create an obstacle
             double obsChoice = rand.NextDouble();
 
-            if(!jumpBack && obsChoice < 0.25) // Spinny bois
+            if(false && !jumpBack && obsChoice < 0.25) // Spinny bois
             {
                 float obstPos;
                 if(climb)   obstPos = -2.5f;
@@ -210,7 +217,7 @@ public class Procedural : MonoBehaviour
                 tempScript.SetTorque(7.6f * (-12f + (float)rand.NextDouble()));
                 tempScript.SetHingePoint(0f);
             }
-            else if(obsChoice < 0.68)  // Blockers
+            else if(true || obsChoice < 0.68)  // Blockers
             {
                 float dx = (float)(rand.NextDouble()) * 0.2f + 0.45f;   // Between 0.45 and 0.65
                 float obstacleX = (dx*xPos + (1f-dx)*lastX);
@@ -228,8 +235,9 @@ public class Procedural : MonoBehaviour
                     }
                 }
                 
-                GameObject tempBlockObstacle = Instantiate(blocker, new Vector2(obstacleX, obstacleY), Quaternion.identity);
-                tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 1.9f);
+                GameObject tempBlockObstacle = Instantiate(blocker, new Vector2(obstacleX, obstacleY-1.0f), Quaternion.Euler(0f, 0f, 90f));
+                tempBlockObstacle.GetComponent<Blocker>().SetAnimationStart((float)rand.NextDouble() * 2.6f);
+                tempBlockObstacle.transform.localScale = new Vector2(0.05f, (float)rand.NextDouble() * 6.0f + 2.0f);
             }
             else    // Spikes
             {

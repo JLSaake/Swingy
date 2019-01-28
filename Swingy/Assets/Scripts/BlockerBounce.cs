@@ -27,8 +27,8 @@ public class BlockerBounce : MonoBehaviour
         {
             playerRB = player.GetComponent<Rigidbody2D>();
             
-            playerRB.velocity = new Vector2((playerRB.velocity.x + 4.8f) * Mathf.Sign(player.transform.position.x - gameObject.transform.position.x),
-                playerRB.velocity.y + 1.5f);
+            playerRB.velocity = new Vector2((playerRB.velocity.x + 6.7f) * 1.6f,
+                playerRB.velocity.y + 9.5f);
         }
     }
 }
