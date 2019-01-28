@@ -98,7 +98,6 @@ public class ColorSelect : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && promptStage < 3) 
         {
-            Debug.Log(promptStage);
             // Play the animation for selecting the color
             flowAnims[selectIndex].Play("Pick");
 
