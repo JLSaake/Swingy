@@ -65,9 +65,9 @@ public class Procedural : MonoBehaviour
 
         buildLevel(1);
 
-        for(int i=1; i<11; ++i)
+        for(int i=1; i<12; ++i)
         {
-            nextStartPos = new Vector2(nextStartPos.x + 4.5f, nextStartPos.y + 11f);
+            nextStartPos = new Vector2(nextStartPos.x + 5.5f, nextStartPos.y + 7.2f);
             buildLevel(1);
         }
         //buildLevel(2);
@@ -85,7 +85,7 @@ public class Procedural : MonoBehaviour
         switch(levelNum)
         {
             case 1:
-                generateLevel(level1Ropes, 16, nextStartPos, HeightIncrementType.Decrease, HeightGain.Slight, 0.82f, 0.0f, false);
+                generateLevel(level1Ropes, 16, nextStartPos, HeightIncrementType.Decrease, HeightGain.Slight, 0.76f, 0.0f, false);
                 break;
             case 2:
                 generateLevel(level2Ropes, 32, nextStartPos, HeightIncrementType.Linear, HeightGain.Medium, 0.44f, 0.19f, true);

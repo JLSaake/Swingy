@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour{
     public Rope rope;
-    public float launchCoefficient = 5.7f;
-    public float mass = 0.8f;
+    public float launchCoefficient = 4.7f;
+    public float mass = 0.9f;
     public float maxYBeforeDeath = 15.0f;
     public ParticleSystem ropeCollision;
     public float audioVariance = 1.5f;
     public GameObject housePrefab;
     public bool pickingColors = false;
-    public float axisMultiplier = 2.9f;
+    public float axisMultiplier = 3.9f;
 
     private Rigidbody2D rb;
     private Camera cam;
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour{
         lastRopeY = 0.0f;
         Rope r = grabbedRope.GetComponent<Rope>();
         Rigidbody2D ropeRB = r.GetComponent<Rigidbody2D>();
-        ropeRB.velocity = new Vector2(ropeRB.velocity.x + xVelocity * 0.56f, ropeRB.velocity.y);
+        ropeRB.velocity = new Vector2(ropeRB.velocity.x + xVelocity * 0.57f, ropeRB.velocity.y);
         furthestRope = r.id > furthestRope ? r.id : furthestRope;
     }
 

@@ -27,7 +27,7 @@ public class BlockerBounce : MonoBehaviour
         {
             playerRB = player.GetComponent<Rigidbody2D>();
             
-            playerRB.velocity = new Vector2((playerRB.velocity.x + 8.9f) * 1.62f,
+            playerRB.velocity = new Vector2((playerRB.velocity.x + 9.2f) * 1.64f,
                 playerRB.velocity.y + 8.5f);
         }
     }
