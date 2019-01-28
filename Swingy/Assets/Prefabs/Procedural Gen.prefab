@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506f85cd9b22504cba61bec569c6f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstRope: {fileID: 0}
   rope: {fileID: 701787206953858234, guid: a6b519186c3476b40bfe9fa85c539716, type: 3}
   rotatingObstacle: {fileID: 3124243772255496494, guid: 9945b7ddf9c1a9f47aa9937acd68b646,
     type: 3}
@@ -99,7 +100,7 @@ MonoBehaviour:
   spike: {fileID: 7316929310255803160, guid: 89625b62a3fccaa4b8d0a7ec070ede1d, type: 3}
   ropeLengthLow: 2
   ropeLengthHigh: 0
-  averageRopeSpacing: 14.5
+  averageRopeSpacing: 15.5
   ropeSpacingVariation: 0.14
   level1Ropes: 15
   level2Ropes: 16

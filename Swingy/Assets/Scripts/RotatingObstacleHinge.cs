@@ -25,7 +25,7 @@ public class RotatingObstacleHinge : Obstacle
 
     public void SetLength(float newLength)
     {
-        gameObject.transform.GetChild(0).localScale = new Vector2(1f, newLength);
+        gameObject.transform.GetChild(0).localScale = new Vector2(0.62f, newLength);
     }
 
     public float GetLength()
