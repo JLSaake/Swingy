@@ -34,12 +34,12 @@ public class House : MonoBehaviour
     public void init(int score)
     {
         List<Color> choices = GameManager.GetColorChoices();
-        if (score >= Procedural.GetMaxRopes() * (1f/3f))
+        if (score >= Procedural.level1Ropes)
         {
             backWindowRenderer.material.SetColor("_FlowColor", choices[0]);
         }
         
-        if (score >= Procedural.GetMaxRopes() * (2f/3f)) 
+        if (score >= Procedural.level1Ropes + Procedural.level2Ropes)
         {
             frontWindowRenderer.material.SetColor("_FlowColor", choices[1]);
         }
