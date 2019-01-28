@@ -42,7 +42,7 @@ public class Procedural : MonoBehaviour
 
     Vector2 nextStartPos;
 
-    public static int level1Ropes = 5;
+    public static int level1Ropes = 2500;
     public static int level2Ropes = 10;
     public static int level3Ropes = 10;
     private static int maxRopes;

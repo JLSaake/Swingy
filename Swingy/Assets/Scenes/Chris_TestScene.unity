@@ -228,12 +228,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!4 &279880125 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 701787206953858232, guid: a6b519186c3476b40bfe9fa85c539716,
-    type: 3}
-  m_PrefabInstance: {fileID: 800371132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &549112338
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2dc278c1c359d54b808c9dba445521e, type: 3}
---- !u!1001 &1035164918
+--- !u!1001 &1107521340
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -783,21 +777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: firstRope
       value: 
-      objectReference: {fileID: 279880125}
+      objectReference: {fileID: 822179486}
     - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
         type: 3}
-      propertyPath: level1Ropes
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
-        type: 3}
-      propertyPath: level2Ropes
+      propertyPath: averageRopeSpacing
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831808185685226889, guid: a529621ddf9f33d43b0576572bb37567,
-        type: 3}
-      propertyPath: level3Ropes
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a529621ddf9f33d43b0576572bb37567, type: 3}
@@ -949,6 +933,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874743045221692626, guid: 7a32a081ab637d544b62c44d207144ec,
+        type: 3}
+      propertyPath: orthographic size
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a32a081ab637d544b62c44d207144ec, type: 3}
