@@ -15,7 +15,10 @@ public class House : MonoBehaviour
     private ParticleSystem chimney;
 
     [SerializeField]
-    private ParticleSystem fireworks;
+    private List<ParticleSystem> fireworks;
+
+    [SerializeField]
+    private List<ParticleSystem> explosions;
 
     void Start()
     {
@@ -43,7 +46,24 @@ public class House : MonoBehaviour
 
         if (score >= Procedural.GetMaxRopes())
         {
-            fireworks.gameObject.SetActive(true);
+            for (int i = 0; i < fireworks.Count; i++)
+            {
+                Gradient grad = new Gradient();
+                grad.SetKeys( new GradientColorKey[] {new GradientColorKey(GameManager.GetColorChoices()[i], 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(100.0f, 0.3f) } );
+                var col = fireworks[i].colorOverLifetime;
+                col.color = grad;
+                fireworks[i].gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < explosions.Count; i++)
+            {
+                Gradient grad = new Gradient();
+                grad.SetKeys( new GradientColorKey[] {new GradientColorKey(GameManager.GetColorChoices()[i], 0.3f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.3f), new GradientAlphaKey(0.0f, 1.0f) } );
+                var col = explosions[i].colorOverLifetime;
+                col.color = grad;
+                explosions[i].gameObject.SetActive(true);
+            }
+
             var main = chimney.main;
             main.startColor = new Color(choices[2].r, choices[2].g, choices[2].b, 1.0f);
         }

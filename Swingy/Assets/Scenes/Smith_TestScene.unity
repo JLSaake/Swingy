@@ -948,7 +948,8 @@ MonoBehaviour:
   backWindowRenderer: {fileID: 0}
   frontWindowRenderer: {fileID: 0}
   chimney: {fileID: 0}
-  fireworks: {fileID: 0}
+  fireworks: []
+  explosions: []
 --- !u!4 &2075212289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 701787206953858232, guid: a6b519186c3476b40bfe9fa85c539716,
