@@ -218,7 +218,6 @@ public class Procedural : MonoBehaviour
 
     public static int GetMaxRopes()
     {
-        return 1;
-        //return maxRopes;
+        return maxRopes;
     }
 }
